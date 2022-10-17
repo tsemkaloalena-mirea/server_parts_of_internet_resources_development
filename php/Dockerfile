@@ -1,5 +1,5 @@
-FROM php:8.0-apache
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
-RUN apt-get update && apt-get install -y libpng-dev
-RUN apt-get update && apt-get install -y zlib1g-dev
-RUN docker-php-ext-install gd
+FROM php:7.2-apache
+RUN apt-get update
+RUN apt-get -y install apache2-utils libaprutil1-dbd-mysql
+RUN a2enmod authn_dbd
+RUN docker-php-ext-install mysqli
