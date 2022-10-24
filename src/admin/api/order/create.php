@@ -11,15 +11,13 @@ include_once "../objects/order.php";
 $db = $mysqli;
 $order = new Order($db);
 $data = json_decode(file_get_contents("php://input"));
-
 if (
     !empty($data->info) &&
     !empty($data->status) &&
     !empty($data->duration) &&
     !empty($data->cost) &&
     !empty($data->master_id) &&
-    !empty($data->registration_time)
-) {
+    !empty($data->registration_time)) {
     $order->info = $data->info;
     $order->status = $data->status;
     $order->duration = $data->duration;
