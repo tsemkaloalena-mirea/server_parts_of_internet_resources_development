@@ -1,0 +1,1 @@
+2022/10/25 11:15:43 [error] 24#24: *16 open() "/usr/share/nginx/html/admin/api/order/read.php'" failed (2: No such file or directory), client: 172.18.0.1, server: , request: "GET /admin/api/order/read.php' HTTP/1.1", host: "localhost"

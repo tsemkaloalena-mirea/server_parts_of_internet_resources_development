@@ -25,14 +25,56 @@ class Order {
         return false;;
     }
 
-    function read() {
+    function read($data) {
         $query = "SELECT * FROM " . $this->table_name;
         $stmt = $this->conn->prepare($query);
         $stmt->execute();
-        return $stmt;
+        $stmt->bind_result($id, $info, $status, $duration, $cost, $master_id, $registration_time);
+        $found = FALSE;
+        $orders_arr = array();
+        $orders_arr["orders"] = array();
+        while($stmt->fetch()) {
+            $found = TRUE;
+            $order_item = array(
+                "id" => $id,
+                "info" => $info,
+                "status" => $status,
+                "duration" => $duration,
+                "cost" => $cost,
+                "master_id" => $master_id,
+                "registration_time" => $registration_time);
+            array_push($orders_arr["orders"], $order_item);
+        }
+        $stmt->close();
+        if ($found === TRUE) {
+            http_response_code(200);
+            echo json_encode($orders_arr);
+        } else {
+            http_response_code(404);
+            echo json_encode(array("message" => "Orders are not found"), JSON_UNESCAPED_UNICODE);
+        }
     }
 
-    function create() {
+    function create($data) {
+        if (
+            empty($data->info) ||
+            empty($data->status) ||
+            empty($data->duration) ||
+            empty($data->cost) ||
+            empty($data->master_id) ||
+            empty($data->registration_time)) {
+                http_response_code(400);
+                echo json_encode(array("message" => "Can not create this order. Some data is not filled."), JSON_UNESCAPED_UNICODE);
+                return;
+        }
+
+        $this->info = $data->info;
+        $this->status = $data->status;
+        $this->duration = $data->duration;
+        $this->cost = $data->cost;
+        $this->master_id = $data->master_id;
+        $this->registration_time = $data->registration_time;
+
         $query = "INSERT INTO " . $this->table_name . "(info, status, duration, cost, master_id, registration_time) VALUES 
         (\"{$this->info}\", \"{$this->status}\", {$this->duration}, {$this->cost}, {$this->master_id}, STR_TO_DATE(\"{$this->registration_time}\", \"%d.%m.%Y %H:%i\"))";
         
@@ -46,14 +88,26 @@ class Order {
         $this->registration_time = htmlspecialchars(strip_tags($this->registration_time));
 
         if ($stmt->execute()) {
-            return true;
+            http_response_code(201);
+            echo json_encode(array("message" => "The order is created"), JSON_UNESCAPED_UNICODE);
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "Can not create an order"), JSON_UNESCAPED_UNICODE);
         }
-        return false;
     }
 
-    function update() {
+    function update($data) {
+        $this->id = $data->id;
+        $this->info = $data->info;
+        $this->status = $data->status;
+        $this->duration = $data->duration;
+        $this->cost = $data->cost;
+        $this->master_id = $data->master_id;
+        $this->registration_time = $data->registration_time;
         if (! $this->exists()) {
-            return false;
+            http_response_code(400);
+            echo json_encode(array("message" => "The order with id " . $this->id . " is not found"), JSON_UNESCAPED_UNICODE);
+            return;
         }
         $query = "UPDATE " . $this->table_name . "
         SET
@@ -75,22 +129,31 @@ class Order {
         $this->registration_time = htmlspecialchars(strip_tags($this->registration_time));
     
         if ($stmt->execute()) {
-            return true;
+            http_response_code(200);
+            echo json_encode(array("message" => "The order is updated"), JSON_UNESCAPED_UNICODE);
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "The order can not be updated"), JSON_UNESCAPED_UNICODE);
         }
-        return false;
     }
 
-    function delete() {
+    function delete($data) {
+        $this->id = $data->id;
         if (! $this->exists()) {
-            return false;
+            http_response_code(400);
+            echo json_encode(array("message" => "The order with id " . $this->id . " is not found"), JSON_UNESCAPED_UNICODE);
+            return;
         }
         $query = "DELETE FROM " . $this->table_name . " WHERE id = {$this->id}";
         $stmt = $this->conn->prepare($query);
         $this->id = htmlspecialchars(strip_tags($this->id));
         if ($stmt->execute()) {
-            return true;
+            http_response_code(200);
+            echo json_encode(array("message" => "The order is deleted"), JSON_UNESCAPED_UNICODE);
+        } else {
+            http_response_code(503);
+            echo json_encode(array("message" => "The order can not be deleted"), JSON_UNESCAPED_UNICODE);
         }
-        return false;
     }
 }
 ?>
