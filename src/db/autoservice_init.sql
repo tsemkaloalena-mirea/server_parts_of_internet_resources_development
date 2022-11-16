@@ -29,6 +29,14 @@ CREATE TABLE IF NOT EXISTS masters (
     end_of_work_time datetime
 );
 
+CREATE TABLE IF NOT EXISTS uploaded_files (
+    id bigint PRIMARY KEY NOT NULL AUTO_INCREMENT,
+    name varchar(64) NOT NULL,
+    type varchar(64) NOT NULL,
+    size int NOT NULL,
+    upload_date datetime NOT NULL
+);
+
 INSERT INTO orders (id, info, status, duration, cost, master_id, registration_time) VALUES
 (1, "q", "NOT_STARTED", 50, 6, 1, STR_TO_DATE("18.10.2022 13:00", "%d.%m.%Y %H:%i")),
 (2, "e", "NOT_STARTED", 40, 5, 2, STR_TO_DATE("19.10.2022 13:00", "%d.%m.%Y %H:%i"));
