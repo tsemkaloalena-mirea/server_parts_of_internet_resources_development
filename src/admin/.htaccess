@@ -1,3 +1,0 @@
-AuthName "Authorization"
-AuthType Basic
-Require valid-user

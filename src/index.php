@@ -2,28 +2,25 @@
 include_once 'upload.php';
 include_once 'load_session_data.php';
 include_once 'save_session_data.php';
-
-?>
-<!DOCTYPE html>
+?>	
 <html lang="en">
   <head>
-	<link rel="stylesheet" type="text/css" href="dark_theme_style.css"/>
+	<link rel="stylesheet" href="<?php echo $_SESSION['color_theme'] . ".css"?>" type="text/css" />
 	<title>Practice 5</title>
-	<style><?php echo file_get_contents($_SESSION['css_path']); ?></style>
   </head>
   <body>
 	<h1>Configurations</h1>
 	<form action="index.php" method="post">
 	  <div>
-		<input type="radio" id="light_theme" name="color_theme" value="light" <?php if ($_SESSION['light_color_theme'] === "true") {echo "checked";}?>>
+		<input type="radio" id="light_theme" name="color_theme" value="light_color_theme" <?php if ($_SESSION['color_theme'] === "light_color_theme") {echo "checked";}?>>
 		<label for="light_theme">Light</label>
-		<input type="radio" id="dark_theme" name="color_theme" value="dark" <?php if ($_SESSION['dark_color_theme'] === "true") {echo "checked";}?>>
+		<input type="radio" id="dark_theme" name="color_theme" value="dark_color_theme" <?php if ($_SESSION['color_theme'] === "dark_color_theme") {echo "checked";}?>>
 		<label for="dark_theme">Dark</label>
 	  </div>
 	  <div>
-		<input type="radio" id="rus_lang" name="language" value="rus" <?php if ($_SESSION['rus_lang'] === "true") {echo "checked";}?>>
+		<input type="radio" id="rus_lang" name="language" value="rus" <?php if ($_SESSION['language'] === "rus") {echo "checked";}?>>
 		<label for="rus_lang">Rus</label>
-		<input type="radio" id="eng_lang" name="language" value="eng" <?php if ($_SESSION['eng_lang'] === "true") {echo "checked";}?>>
+		<input type="radio" id="eng_lang" name="language" value="eng" <?php if ($_SESSION['language'] === "eng") {echo "checked";}?>>
 		<label for="eng_lang">Eng</label>
 	  </div>
 	  <div>
@@ -33,7 +30,7 @@ include_once 'save_session_data.php';
 	  <button type="submit" name="save_session">Save</button>
 	</form>
 	<?php
-	if ($_SESSION['rus_lang'] === "true") {
+	if ($_SESSION['language'] === "rus") {
 	  echo '<h1>Привет, ' . $_SESSION['username'] . '</h1>';
 	} else {
 	  echo '<h1>Hello, ' . $_SESSION['username'] . '</h1>';

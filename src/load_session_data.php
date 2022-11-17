@@ -1,36 +1,41 @@
 <?php
-function loadColorTheme() {
-    if (isset($_SESSION['dark_color_theme']) && isset($_SESSION['light_color_theme'])) {
-        if ($_SESSION['dark_color_theme'] === "true") {
-            $_SESSION['css_path'] = "dark_theme_style.css";
-        } else {
-            $_SESSION['css_path'] = "light_theme_style.css";
-        }
+
+$redis = new Redis(); 
+$redis->connect('cache', 6379);
+
+function loadColorTheme($redis) {
+    if ($redis->get('color_theme') !== null) {
+        $_SESSION['color_theme'] = $redis->get('color_theme');
     } else {
-        $_SESSION['css_path'] = "light_theme_style.css";
-        $_SESSION['dark_color_theme'] = "false";
-        $_SESSION['light_color_theme'] = "true";
+        $_SESSION['color_theme'] = 'light_theme_style';
     }
 }
 
-function loadUsername() {
-    if (!isset($_SESSION['username'])) {
+function loadUsername($redis) {
+    if ($redis->get('username') === null) {
         $_SESSION['username'] = "Anonymous";
+    } else {
+        $_SESSION['username'] = $redis->get('username');
     }
 }
 
-function loadLanguage() {
-    if (!isset($_SESSION['rus_lang']) && !isset($_SESSION['eng_lang'])) {
-        $_SESSION['eng_lang'] = "true";
-        $_SESSION['rus_lang'] = "false";
+function loadLanguage($redis) {
+    if ($redis->get('language') === null) {
+        $_SESSION['language'] = "eng";
+    } else {
+        $_SESSION['language'] = $redis->get('language');
     }
 }
 
-function loadData() {
-    loadColorTheme();
-    loadUsername();
-    loadLanguage();
+
+function loadData($redis) {
+    loadColorTheme($redis);
+    loadUsername($redis);
+    loadLanguage($redis);
 }
+
+// ini_set('session.save_handler', 'redis');
+// ini_set('session.save_path', 'tcp://localhost:6379');
 session_start();
-loadData();
+loadData($redis);
 ?>

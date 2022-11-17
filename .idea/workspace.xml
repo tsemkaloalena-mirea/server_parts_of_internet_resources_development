@@ -2,19 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e2ef7fb8-c62f-4972-a086-93eaad392e29" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/conf/apache2/000-default.conf" beforeDir="false" afterPath="$PROJECT_DIR$/conf/apache2/000-default.conf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/apache2/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/apache2/access.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/logs/apache2/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/apache2/error.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/nginx/access.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/nginx/access.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/logs/nginx/error.log" beforeDir="false" afterPath="$PROJECT_DIR$/logs/nginx/error.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/php/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/php/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/db/autoservice_init.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/db/autoservice_init.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/masters.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/orders.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/t.php" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
