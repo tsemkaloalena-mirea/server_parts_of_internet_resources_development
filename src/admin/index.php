@@ -53,5 +53,8 @@ include_once 'save_session_data.php';
 	}
 	?>
 	</table>
+	<?php
+		phpinfo();
+	?>
   </body>
 </html>
