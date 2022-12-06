@@ -11,7 +11,7 @@ services:
       - ./conf/apache2/000-default.conf:/etc/apache2/sites-available/000-default.conf
       - ./logs/apache2:/var/log/apache2
       - ./php/php.ini:/usr/local/etc/php/php.ini
-      # - ./php/custom.php.ini:/
+      - composer-data:/tmp/composer
     links:
       - db
       - cache
@@ -73,3 +73,4 @@ services:
 volumes:
   db_volume:
   cache:
+  composer-data:
