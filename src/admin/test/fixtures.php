@@ -17,9 +17,9 @@ for ($i = 0; $i < 50; $i++) {
     $order->registration_time = date_timestamp_get($faker->dateTime());
     array_push($orders, $order);
 }
-// drawByDuration($orders);
-// drawByCost($orders);
-// drawByTime($orders);
+ drawByDuration($orders);
+ drawByCost($orders);
+ drawByTime($orders);
 ?>
 <html lang="en">
   <head>
